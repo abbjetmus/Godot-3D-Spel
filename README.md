@@ -23,7 +23,7 @@ Godot är en kraftfull och öppen källkod spelmotor som stöder både 2D och 3D
 - Exempel på ett enkelt skript:
 
 ```gdscript
-extends Node2D
+extends Node3D
 
 func _ready():
     print("Spelet startar!")
@@ -78,7 +78,7 @@ Föredrar man video-tutorials är den här serien fantastisk för 3D spel med Go
 (https://www.youtube.com/playlist?list=PLda3VoSoc_TTp8Ng3C57spnNkOw3Hm_35)[https://www.youtube.com/playlist?list=PLda3VoSoc_TTp8Ng3C57spnNkOw3Hm_35]
 
 ## Projekt Beskrivning
-Projektet utförs individuellt och går ut på att ni ska utveckla ett valfritt 3D-spel (230S) i Godot.
+Projektet utförs individuellt och går ut på att ni ska utveckla ett valfritt 3D-spel i Godot.
 
 ## Kravuppfyllelse på 3D spelet
 ### 1. Grundläggande spelmekanik
