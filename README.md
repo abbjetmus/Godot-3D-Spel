@@ -105,6 +105,7 @@ Enkel fysik – Gravitation, hopp eller fall när spelaren går av en plattform.
 ### 6. Scen- och nivåhantering
 Enkla scenövergångar – Flytta mellan olika nivåer eller starta om spelet.
 Respawn eller återställning – Om spelaren faller av kartan eller dör, ska spelet kunna återställa scenen.
-### 7. Byggas och distribueras som en .exe fil för andra att kunna testa spelet.
+### 7. Byggas och distribueras
+Byggas och distribueras som en .exe fil för andra att kunna testa spelet.
 
 
