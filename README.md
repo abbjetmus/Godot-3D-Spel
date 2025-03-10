@@ -13,9 +13,7 @@ Godot är en kraftfull och öppen källkod spelmotor som stöder både 2D och 3D
 - **Allt i Godot bygger på noder.**
 - En scen kan innehålla flera noder.
 - Exempel på vanliga noder:
-  - `Node2D` - Grundläggande nod för 2D-spel
   - `Node3D` - Grundläggande nod för 3D-spel
-  - `Sprite2D` - Hanterar bilder och texturer i 2D
   - `Camera3D` - Hanterar kameran i 3D
 
 ### GDScript
@@ -81,6 +79,11 @@ Föredrar man video-tutorials är den här serien fantastisk för 3D spel med Go
 Projektet utförs individuellt och går ut på att ni ska utveckla ett valfritt 3D-spel i Godot.
 
 ## Kravuppfyllelse på 3D spelet
+Ni får återskapa ett känt spel om ni vill, men inte hämta klar kod från nätet.
+Eller så väljer ni hitta på ett eget spel. Efter ni har gått igenom tutorialen kan man börja planera spelet steg 0.
+### 0. Planering
+Planera spelet, skapa ett dokument med beskrivning och skiss hur ni vill att spelet ska fungera och se ut. 
+Få godkännande från läraren. Resten är saker som spelet måste uppfylla.
 ### 1. Grundläggande spelmekanik
 Spelarens rörelse – Använd WASD/tangenter eller en joystick för att styra en 3D-karaktär.
 Kollisionsdetektion – Se till att spelaren och objekt inte går genom varandra.
