@@ -77,6 +77,8 @@ Föredrar man video-tutorials är den här serien fantastisk för 3D spel med Go
 
 ## Projekt Beskrivning
 Projektet utförs individuellt och går ut på att ni ska utveckla ett valfritt 3D-spel i Godot.
+Tiden är 11 mars - 3 april och innefattar 24 timmar. 
+Redovisningsformen är mässa där man får testa varandras spel.
 
 ## Kravuppfyllelse på 3D spelet
 Ni får återskapa ett känt spel om ni vill, men inte hämta klar kod från nätet.
