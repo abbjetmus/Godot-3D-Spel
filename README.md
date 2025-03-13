@@ -1,5 +1,7 @@
 # Guide till Godot för 3D-spelutveckling
 
+Github Classroom länk: <a href="https://classroom.github.com/a/HTVFY2pk">https://classroom.github.com/a/HTVFY2pk</a>
+
 ## Introduktion
 Godot är en kraftfull och öppen källkod spelmotor som stöder både 2D och 3D-spelutveckling. Den erbjuder en flexibel nodbaserad arkitektur, inbyggt GDScript-programmeringsspråk och ett lättanvänt gränssnitt.
 
