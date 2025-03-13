@@ -50,6 +50,18 @@ func _process(delta):
     move_and_slide(velocity)
 ```
 
+## Spel resurser i form och extensions och bilder m.m.
+Godot har egen sida för resurser (assets) där man kan hitta lämpliga bilder för spelplan och liknande.
+
+
+<a href="https://godotengine.org/asset-library/asset">https://godotengine.org/asset-library/asset</a>
+
+
+Här tex asset för hexagonal gräs karta.
+
+
+<img src="https://docs.godotengine.org/en/stable/_images/assetlib_asset.webp"> 
+
 ## Viktiga aspekter
 - **Signals och Events:** Använd `signals` för att hantera händelser.
 - **Scenhantering:** Återanvänd scener för bättre struktur.
