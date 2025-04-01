@@ -127,4 +127,7 @@ Respawn eller återställning – Om spelaren faller av kartan eller dör, ska s
 ### 7. Byggas och distribueras
 Byggas och distribueras som en .exe fil för andra att kunna testa spelet.
 
+Här är en länk som beskriver hur man genererar en exekverbar fil för Windows:
+<a href="http://docs.godotengine.org/en/latest/tutorials/export/exporting_for_windows.html">http://docs.godotengine.org/en/latest/tutorials/export/exporting_for_windows.html</a>
+
 
