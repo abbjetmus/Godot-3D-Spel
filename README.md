@@ -130,4 +130,202 @@ Byggas och distribueras som en .exe fil för andra att kunna testa spelet.
 Här är en länk som beskriver hur man genererar en exekverbar fil för Windows:
 <a href="http://docs.godotengine.org/en/latest/tutorials/export/exporting_for_windows.html">http://docs.godotengine.org/en/latest/tutorials/export/exporting_for_windows.html</a>
 
+# 🎮 Git LFS för Godot-projekt i GitHub Classroom
+
+Eftersom studenterna arbetar i sina **egna repositories skapade via GitHub Classroom** (som i grunden är vanliga GitHub-repositories) måste **Git LFS aktiveras i varje repository individuellt**.
+
+Nedan är den säkraste och tydligaste konfigurationen specifikt för Godot‑projekt.
+
+---
+
+# ✅ Steg 1 — Installera Git LFS (Varje student gör detta en gång)
+
+Kör följande kommando:
+
+```bash
+git lfs install
+```
+
+Detta behöver bara göras en gång per dator.
+
+---
+
+# ✅ Steg 2 — Klona sitt Classroom‑repository
+
+```bash
+git clone https://github.com/ORG/assignment-repo.git
+cd assignment-repo
+```
+
+---
+
+# ✅ Steg 3 — Spåra stora Godot‑filtyper
+
+I Godot‑projekt bör man vanligtvis spåra följande filtyper med LFS:
+
+```bash
+git lfs track "*.png"
+git lfs track "*.jpg"
+git lfs track "*.wav"
+git lfs track "*.mp3"
+git lfs track "*.ogg"
+git lfs track "*.import"
+git lfs track "*.glb"
+git lfs track "*.gltf"
+git lfs track "*.ttf"
+git lfs track "*.mp4"
+```
+
+⚠️ Viktigt:
+Spåra **inte** följande filer med LFS:
+
+* `.tscn`
+* `.gd`
+* `.tres`
+* `.project`
+
+Dessa är textfiler och ska versionshanteras med vanlig Git för att möjliggöra korrekt merge‑hantering.
+
+---
+
+# ✅ Steg 4 — Commita spårningsreglerna
+
+```bash
+git add .gitattributes
+git commit -m "Enable Git LFS for large Godot assets"
+git push
+```
+
+Detta säkerställer att LFS‑inställningarna sparas i repositoryt.
+
+---
+
+# ✅ Steg 5 — Lägg till stora filer som vanligt
+
+Efter detta kan studenter arbeta normalt:
+
+```bash
+git add .
+git commit -m "Add game assets"
+git push
+```
+
+Git LFS hanterar automatiskt uppladdningen av de stora filerna.
+
+---
+
+# 🏫 Viktiga överväganden i undervisningsmiljö
+
+## 🔹 Alternativ A (Rekommenderas): Läraren aktiverar LFS i mall‑repositoryt
+
+Detta är den renaste lösningen:
+
+1. Läraren aktiverar Git LFS i mall‑repositoryt
+2. Lägger till `.gitattributes`
+3. Skapar därefter Classroom‑uppgiften
+
+Då får alla studenters repositories rätt konfiguration från början.
+
+Fördelar:
+
+* Studenter glömmer inte aktivera LFS
+* Inga 100MB‑fel vid push
+* Ingen komplicerad historik‑omskrivning behövs
+
+---
+
+## 🔹 Alternativ B: Studenter aktiverar individuellt
+
+Om repositories redan är skapade:
+
+* Varje student kör LFS‑kommandona i sitt repository
+* Commitar `.gitattributes`
+
+Det fungerar bra — men måste göras **innan** stora filer läggs till.
+
+---
+
+# 🚨 Mycket viktigt: 100MB‑gränsen
+
+GitHub blockerar filer över 100MB om de inte spåras med LFS.
+
+Om en student:
+
+* Commitar filen först
+* Aktiverar LFS efteråt
+
+Kommer push att misslyckas.
+
+Lösning:
+
+```bash
+git lfs migrate import --include="*.png,*.wav,*.glb"
+```
+
+Detta skriver om historiken. För individuella student‑repositories är det oftast okej, men det kan vara förvirrande för nybörjare.
+
+---
+
+# 💰 Lagrings- och bandbreddsvarning (extra viktigt för spelprojekt)
+
+Spelresurser kan snabbt förbruka mycket lagring.
+
+GitHub har begränsningar för:
+
+* LFS‑lagring
+* LFS‑bandbredd
+
+Om till exempel:
+
+* 50 studenter
+* Varje repository innehåller 1 GB assets
+* Alla klonar ofta
+
+Kan organisationen överskrida sin kvot.
+
+---
+
+# 🔄 Säkrare alternativ vid mycket stora projekt
+
+Vid riktigt stora tillgångar kan man istället:
+
+* Lagra stora ljudpaket externt (t.ex. molnlagring)
+* Tillhandahålla nedladdningsskript
+* Använda GitHub Releases för stora filer istället för själva repositoryt
+
+---
+
+# 🎯 Rekommendation för er situation
+
+Eftersom detta gäller Godot‑projekt rekommenderas följande:
+
+## ✔ Spåra med Git LFS
+
+* Ljud
+* Texturer
+* 3D‑modeller
+* Video
+* Typsnitt
+
+## ❌ Spåra inte med Git LFS
+
+* Scener (`.tscn`)
+* Script (`.gd`)
+* Projektkonfiguration
+
+---
+
+# 📄 Jag kan även hjälpa med
+
+* En färdig `.gitattributes`‑fil optimerad för Godot
+* En kort instruktionstext att dela med studenter
+* En enkel och säker klassrumspolicy för hantering av stora assets
+
+Ange gärna:
+
+* Ungefärlig storlek på assets per student
+* Antal studenter
+* Om projekten är individuella eller gruppbaserade
+
+Så kan jag föreslå den säkraste strukturen för att undvika att överskrida lagrings‑ eller bandbreddsgränser.
 
