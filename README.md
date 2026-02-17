@@ -315,17 +315,47 @@ Eftersom detta gäller Godot‑projekt rekommenderas följande:
 
 ---
 
-# 📄 Jag kan även hjälpa med
+# Godot Git LFS – .gitattributes
 
-* En färdig `.gitattributes`‑fil optimerad för Godot
-* En kort instruktionstext att dela med studenter
-* En enkel och säker klassrumspolicy för hantering av stora assets
+Skapa en fil med namnet `.gitattributes` i projektets rot och lägg in följande:
 
-Ange gärna:
+```gitattributes
+# ===== Git LFS – Binära spelresurser =====
 
-* Ungefärlig storlek på assets per student
-* Antal studenter
-* Om projekten är individuella eller gruppbaserade
+# Bilder / Texturer
+*.png filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.webp filter=lfs diff=lfs merge=lfs -text
 
-Så kan jag föreslå den säkraste strukturen för att undvika att överskrida lagrings‑ eller bandbreddsgränser.
+# Ljud
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.mp3 filter=lfs diff=lfs merge=lfs -text
+*.ogg filter=lfs diff=lfs merge=lfs -text
 
+# Video
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.webm filter=lfs diff=lfs merge=lfs -text
+
+# 3D‑modeller
+*.glb filter=lfs diff=lfs merge=lfs -text
+*.gltf filter=lfs diff=lfs merge=lfs -text
+*.fbx filter=lfs diff=lfs merge=lfs -text
+*.obj filter=lfs diff=lfs merge=lfs -text
+
+# Typsnitt
+*.ttf filter=lfs diff=lfs merge=lfs -text
+*.otf filter=lfs diff=lfs merge=lfs -text
+
+# Godot importfiler
+*.import filter=lfs diff=lfs merge=lfs -text
+
+# ===== Spåra INTE textbaserade filer med LFS =====
+
+*.tscn text
+*.tres text
+*.gd text
+*.shader text
+*.godot text
+*.cfg text
+*.json text
