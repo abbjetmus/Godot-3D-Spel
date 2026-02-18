@@ -132,230 +132,117 @@ Här är en länk som beskriver hur man genererar en exekverbar fil för Windows
 
 # 🎮 Git LFS för Godot-projekt i GitHub Classroom
 
-Eftersom studenterna arbetar i sina **egna repositories skapade via GitHub Classroom** (som i grunden är vanliga GitHub-repositories) måste **Git LFS aktiveras i varje repository individuellt**.
+git lfs (Large File Storage) är ett tillägg till Git som gör det möjligt att hantera stora filer effektivt. För Godot-projekt som ofta innehåller stora tillgångar (assets) som texturer, ljud och 3D-modeller. Det är viktigt att använda Git LFS för att undvika problem med GitHub's 100MB-filgräns.
 
-Nedan är den säkraste och tydligaste konfigurationen specifikt för Godot‑projekt.
 
----
-
-# ✅ Steg 1 — Installera Git LFS (Varje student gör detta en gång)
-
+# ✅ Steg 1 — Installera Git LFS
 Kör följande kommando:
 
 ```bash
 git lfs install
 ```
-
-Detta behöver bara göras en gång per dator.
-
----
-
-# ✅ Steg 2 — Klona sitt Classroom‑repository
-
+# ✅ Steg 2 — Clone repositoryt
+Byt ut `<repository-url>` mot URL:en för ditt GitHub Classroom repository:
 ```bash
-git clone https://github.com/ORG/assignment-repo.git
-cd assignment-repo
+git clone <repository-url>
 ```
 
----
+# ✅ Steg 3 — Skapa en `.gitattributes`-fil
 
-# ✅ Steg 3 — Spåra stora Godot‑filtyper
+En `.gitattributes`-fil i projektets rot definierar vilka filtyper som ska spåras med LFS. Exempel:
 
-I Godot‑projekt bör man vanligtvis spåra följande filtyper med LFS:
+```gitattributes
+# -----------------------------------------------------------------------------
+# Godot + Git LFS
+# -----------------------------------------------------------------------------
 
-```bash
-git lfs track "*.png"
-git lfs track "*.jpg"
-git lfs track "*.wav"
-git lfs track "*.mp3"
-git lfs track "*.ogg"
-git lfs track "*.import"
-git lfs track "*.glb"
-git lfs track "*.gltf"
-git lfs track "*.ttf"
-git lfs track "*.mp4"
+# Large binary assets (store in LFS)
+*.png  filter=lfs diff=lfs merge=lfs -text
+*.jpg  filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.webp filter=lfs diff=lfs merge=lfs -text
+*.tga  filter=lfs diff=lfs merge=lfs -text
+*.bmp  filter=lfs diff=lfs merge=lfs -text
+*.hdr  filter=lfs diff=lfs merge=lfs -text
+*.exr  filter=lfs diff=lfs merge=lfs -text
+
+*.wav  filter=lfs diff=lfs merge=lfs -text
+*.ogg  filter=lfs diff=lfs merge=lfs -text
+*.mp3  filter=lfs diff=lfs merge=lfs -text
+*.flac filter=lfs diff=lfs merge=lfs -text
+
+*.mp4  filter=lfs diff=lfs merge=lfs -text
+*.mov  filter=lfs diff=lfs merge=lfs -text
+*.webm filter=lfs diff=lfs merge=lfs -text
+
+*.glb  filter=lfs diff=lfs merge=lfs -text
+*.gltf filter=lfs diff=lfs merge=lfs -text
+*.fbx  filter=lfs diff=lfs merge=lfs -text
+*.blend filter=lfs diff=lfs merge=lfs -text
+*.obj  filter=lfs diff=lfs merge=lfs -text
+*.dae  filter=lfs diff=lfs merge=lfs -text
+
+*.ttf  filter=lfs diff=lfs merge=lfs -text
+*.otf  filter=lfs diff=lfs merge=lfs -text
+
+*.res  filter=lfs diff=lfs merge=lfs -text
+
+# Godot import artifacts can be big
+*.ctex filter=lfs diff=lfs merge=lfs -text
+*.stex filter=lfs diff=lfs merge=lfs -text
+*.tex  filter=lfs diff=lfs merge=lfs -text
+
+# Godot-specific: keep these as text (normal version handeling)
+*.gd     text eol=lf
+*.gdshader text eol=lf
+*.tscn   text eol=lf
+*.tres   text eol=lf
+*.godot  text eol=lf
+project.godot text eol=lf
+
+# Common text formats
+*.json text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
+*.md   text eol=lf
+*.txt  text eol=lf
 ```
-
-⚠️ Viktigt:
-Spåra **inte** följande filer med LFS:
-
-* `.tscn`
-* `.gd`
-* `.tres`
-* `.project`
-
-Dessa är textfiler och ska versionshanteras med vanlig Git för att möjliggöra korrekt merge‑hantering.
-
----
 
 # ✅ Steg 4 — Commita spårningsreglerna
 
 ```bash
 git add .gitattributes
-git commit -m "Enable Git LFS for large Godot assets"
-git push
 ```
 
-Detta säkerställer att LFS‑inställningarna sparas i repositoryt.
+## OBS, om detta görs efter att stora filer redan har commitats, måste man migrera dem till LFS:
 
----
+## ⚠️⚠️⚠️ Detta kommer skriva över git historiken, det rekommenderas att göra en backup av repository innan
+
+På windows kan följande kommando användas OBS: PowerShell:
+```ps1
+$include = (Get-Content .gitattributes |
+  Where-Object { $_ -notmatch '^\s*#' -and $_ -match 'filter=lfs' } |
+  ForEach-Object { ($_ -split '\s+')[0] }
+) -join ','
+
+"Include: $include"
+git lfs migrate import --everything --include="$include"
+```
+
+Om detta görs efter en push behöver man även pusha igen med `--force`:
+
+```bash
+git push --force
+```
+
+
 
 # ✅ Steg 5 — Lägg till stora filer som vanligt
 
-Efter detta kan studenter arbeta normalt:
+Efter det kan man lägga till alla filer som vanligt, och de som matchar reglerna i `.gitattributes` kommer att spåras av LFS:
 
 ```bash
 git add .
 git commit -m "Add game assets"
 git push
 ```
-
-Git LFS hanterar automatiskt uppladdningen av de stora filerna.
-
----
-
-# 🏫 Viktiga överväganden i undervisningsmiljö
-
-## 🔹 Alternativ A (Rekommenderas): Läraren aktiverar LFS i mall‑repositoryt
-
-Detta är den renaste lösningen:
-
-1. Läraren aktiverar Git LFS i mall‑repositoryt
-2. Lägger till `.gitattributes`
-3. Skapar därefter Classroom‑uppgiften
-
-Då får alla studenters repositories rätt konfiguration från början.
-
-Fördelar:
-
-* Studenter glömmer inte aktivera LFS
-* Inga 100MB‑fel vid push
-* Ingen komplicerad historik‑omskrivning behövs
-
----
-
-## 🔹 Alternativ B: Studenter aktiverar individuellt
-
-Om repositories redan är skapade:
-
-* Varje student kör LFS‑kommandona i sitt repository
-* Commitar `.gitattributes`
-
-Det fungerar bra — men måste göras **innan** stora filer läggs till.
-
----
-
-# 🚨 Mycket viktigt: 100MB‑gränsen
-
-GitHub blockerar filer över 100MB om de inte spåras med LFS.
-
-Om en student:
-
-* Commitar filen först
-* Aktiverar LFS efteråt
-
-Kommer push att misslyckas.
-
-Lösning:
-
-```bash
-git lfs migrate import --include="*.png,*.wav,*.glb"
-```
-
-Detta skriver om historiken. För individuella student‑repositories är det oftast okej, men det kan vara förvirrande för nybörjare.
-
----
-
-# 💰 Lagrings- och bandbreddsvarning (extra viktigt för spelprojekt)
-
-Spelresurser kan snabbt förbruka mycket lagring.
-
-GitHub har begränsningar för:
-
-* LFS‑lagring
-* LFS‑bandbredd
-
-Om till exempel:
-
-* 50 studenter
-* Varje repository innehåller 1 GB assets
-* Alla klonar ofta
-
-Kan organisationen överskrida sin kvot.
-
----
-
-# 🔄 Säkrare alternativ vid mycket stora projekt
-
-Vid riktigt stora tillgångar kan man istället:
-
-* Lagra stora ljudpaket externt (t.ex. molnlagring)
-* Tillhandahålla nedladdningsskript
-* Använda GitHub Releases för stora filer istället för själva repositoryt
-
----
-
-# 🎯 Rekommendation för er situation
-
-Eftersom detta gäller Godot‑projekt rekommenderas följande:
-
-## ✔ Spåra med Git LFS
-
-* Ljud
-* Texturer
-* 3D‑modeller
-* Video
-* Typsnitt
-
-## ❌ Spåra inte med Git LFS
-
-* Scener (`.tscn`)
-* Script (`.gd`)
-* Projektkonfiguration
-
----
-
-# Godot Git LFS – .gitattributes
-
-Skapa en fil med namnet `.gitattributes` i projektets rot och lägg in följande:
-
-```gitattributes
-# ===== Git LFS – Binära spelresurser =====
-
-# Bilder / Texturer
-*.png filter=lfs diff=lfs merge=lfs -text
-*.jpg filter=lfs diff=lfs merge=lfs -text
-*.jpeg filter=lfs diff=lfs merge=lfs -text
-*.webp filter=lfs diff=lfs merge=lfs -text
-
-# Ljud
-*.wav filter=lfs diff=lfs merge=lfs -text
-*.mp3 filter=lfs diff=lfs merge=lfs -text
-*.ogg filter=lfs diff=lfs merge=lfs -text
-
-# Video
-*.mp4 filter=lfs diff=lfs merge=lfs -text
-*.webm filter=lfs diff=lfs merge=lfs -text
-
-# 3D‑modeller
-*.glb filter=lfs diff=lfs merge=lfs -text
-*.gltf filter=lfs diff=lfs merge=lfs -text
-*.fbx filter=lfs diff=lfs merge=lfs -text
-*.obj filter=lfs diff=lfs merge=lfs -text
-
-# Typsnitt
-*.ttf filter=lfs diff=lfs merge=lfs -text
-*.otf filter=lfs diff=lfs merge=lfs -text
-
-# Godot importfiler
-*.import filter=lfs diff=lfs merge=lfs -text
-
-# ===== Spåra INTE textbaserade filer med LFS =====
-
-*.tscn text
-*.tres text
-*.gd text
-*.shader text
-*.godot text
-*.cfg text
-*.json text
